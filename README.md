@@ -5,7 +5,10 @@ This is a simple Go wrapper library for FFmpeg that provides an easy way to perf
 ## Features
 
 - Transcode video from one format to another.
-- Extract audio from a video file.
+- Remove audio from a input video file.
+- Extract audio from a  input video file.
+- Extract video clip from a input video file.
+- Extract audio clip from a input file.
 - Concatenate multiple video files into a single video.
 
 ## Installation
@@ -47,7 +50,7 @@ func main() {
 
 	// +
 	// Example: Remove Audio from video, Extract only video
-	outputPath, err = ffmpeg.ExtractVideo("/home/linuxsploit/demo.mp4", "output.mp4", false)
+	outputPath, err = ffmpeg.ExtractVideo("/home/linuxsploit/demo.mp4", ".mp4", false)
 	if err != nil {
 		fmt.Println("Error extracting audio:", err)
 	}
@@ -55,7 +58,7 @@ func main() {
 
 	// +
 	// Example: Extract audio from a video
-	outputPath, err = ffmpeg.ExtractAudio("/home/linuxsploit/demo.mp4", "output.mp3", false)
+	outputPath, err = ffmpeg.ExtractAudio("/home/linuxsploit/demo.mp4", ".mp3", false)
 	if err != nil {
 		fmt.Println("Error extracting audio:", err)
 	}
@@ -63,7 +66,7 @@ func main() {
 
 	// +
 	// Example: Extract Video Clip of 20 seconds to 70 seconds timestamp from a input video
-	outputPath, err = ffmpeg.ExtractVideoClip("/home/linuxsploit/demo.mp4", "output.mp4", 20, 70, false, false)
+	outputPath, err = ffmpeg.ExtractVideoClip("/home/linuxsploit/demo.mp4", ".mp4", 20, 70, false, false)
 	if err != nil {
 		fmt.Println("Error extracting audio:", err)
 	}
@@ -71,7 +74,7 @@ func main() {
 
 	// +
 	// Example: Extract Audio Clip of 20 seconds to 70 seconds timestamp from a input video
-	outputPath, err = ffmpeg.ExtractAudioClip("/home/linuxsploit/demo.mp4", "output.mp3", 20, 70, false)
+	outputPath, err = ffmpeg.ExtractAudioClip("/home/linuxsploit/demo.mp4", ".mp3", 20, 70, false)
 	if err != nil {
 		fmt.Println("Error extracting audio:", err)
 	}
