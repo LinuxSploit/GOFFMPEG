@@ -28,31 +28,69 @@ package main
 
 import (
 	"fmt"
-	"github.com/LinuxSploit/GOFFMPEG/"
+	"log"
+
+	"github.com/LinuxSploit/GOFFMPEG"
 )
 
 func main() {
 	// Initialize the FFmpeg wrapper with the path to the FFmpeg executable.
-	ffmpeg := ffmpegwrapper.NewFFmpeg("/path/to/ffmpeg")
+	ffmpeg := GOFFMPEG.NewFFmpeg("/path/to/ffmpeg")
 
+	// +
 	// Example: Transcode a video
-	err := ffmpeg.TranscodeVideo("input.mp4", "output.mp4")
+	outputPath, err := ffmpeg.TranscodeVideo("/home/linuxsploit/demo1.mp4", ".mkv")
 	if err != nil {
 		fmt.Println("Error transcoding video:", err)
 	}
+	log.Println(outputPath)
 
-	// Example: Extract audio from a video
-	err = ffmpeg.ExtractAudio("input.mp4", "output.mp3")
+	// +
+	// Example: Remove Audio from video, Extract only video
+	outputPath, err = ffmpeg.ExtractVideo("/home/linuxsploit/demo.mp4", "output.mp4", false)
 	if err != nil {
 		fmt.Println("Error extracting audio:", err)
 	}
+	log.Println(outputPath)
 
-	// Example: Concatenate multiple videos
-	inputPaths := []string{"video1.mp4", "video2.mp4"}
-	err = ffmpeg.ConcatVideos(inputPaths, "output.mp4")
+	// +
+	// Example: Extract audio from a video
+	outputPath, err = ffmpeg.ExtractAudio("/home/linuxsploit/demo.mp4", "output.mp3", false)
 	if err != nil {
-		fmt.Println("Error concatenating videos:", err)
+		fmt.Println("Error extracting audio:", err)
 	}
+	log.Println(outputPath)
+
+	// +
+	// Example: Extract Video Clip of 20 seconds to 70 seconds timestamp from a input video
+	outputPath, err = ffmpeg.ExtractVideoClip("/home/linuxsploit/demo.mp4", "output.mp4", 20, 70, false, false)
+	if err != nil {
+		fmt.Println("Error extracting audio:", err)
+	}
+	log.Println(outputPath)
+
+	// +
+	// Example: Extract Audio Clip of 20 seconds to 70 seconds timestamp from a input video
+	outputPath, err = ffmpeg.ExtractAudioClip("/home/linuxsploit/demo.mp4", "output.mp3", 20, 70, false)
+	if err != nil {
+		fmt.Println("Error extracting audio:", err)
+	}
+	log.Println(outputPath)
+
+	// +
+	// Example: Concatenate multiple videos, input videos should have same resolution
+	outputPath, err = ffmpeg.ConcatVideos(
+		[]string{
+			"/home/linuxsploit/demo1.mp4",
+			"/home/linuxsploit/demo2.mp4",
+			"/home/linuxsploit/demo3.mp4",
+		},
+		".mkv",
+	)
+	if err != nil {
+		fmt.Println("Error Concatenating videos:", err)
+	}
+	log.Println(outputPath)
 }
 ```
 
